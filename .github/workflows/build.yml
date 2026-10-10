@@ -27,7 +27,7 @@ jobs:
       shell: bash
       run: |
         mkdir -p out
-        cp build/Release/NicholasStash.dll out/
+        cp build/Release/NicholasStash.dll LICENSE THIRD-PARTY-NOTICES.md out/
         cd out
         sha256sum NicholasStash.dll | tee NicholasStash.dll.sha256
 
@@ -44,3 +44,5 @@ jobs:
         files: |
           out/NicholasStash.dll
           out/NicholasStash.dll.sha256
+          out/LICENSE
+          out/THIRD-PARTY-NOTICES.md

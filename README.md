@@ -86,4 +86,5 @@ risk. Not affiliated with ArenaNet or the GWToolbox++ team.
 
 ## License
 
-MIT, see [LICENSE](LICENSE). MinHook is under its own BSD licence.
+MIT, see [LICENSE](LICENSE). MinHook (linked in) and GWToolbox++ (referenced) have their own licences, reproduced in
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
