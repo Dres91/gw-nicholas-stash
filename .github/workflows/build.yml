@@ -70,9 +70,9 @@ jobs:
         sha256sum -c NicholasStash.dll.sha256
         hash=$(cut -d' ' -f1 NicholasStash.dll.sha256)
         gh release create "$GITHUB_REF_NAME" NicholasStash.dll NicholasStash.dll.sha256 LICENSE THIRD-PARTY-NOTICES.md \
-          --repo "$GITHUB_REPOSITORY" --verify-tag --prerelease --title "Nicholas Stash $GITHUB_REF_NAME" \
+          --repo "$GITHUB_REPOSITORY" --verify-tag --title "Nicholas Stash $GITHUB_REF_NAME" \
           --notes "Built automatically by GitHub from this tag's source ([build log](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})).
 
         SHA256 of NicholasStash.dll: \`$hash\`
 
-        Marked as a pre-release: the author tested a build of this same source in game, but this exact GitHub-built file is new. Please review the code and report anything odd in Issues."
+        Please review the code and report anything odd in Issues."
