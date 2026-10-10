@@ -32,7 +32,9 @@ please read the code before using it and open an Issue about anything odd. It is
 
 - **Reads only.** It looks at your inventory bags, Xunlai storage panes and material storage.
 - **Never** moves, sells, salvages, uses or drops items, sends anything to the game server, or automates anything.
-- **No network access and no files written.**
+- **No network access and no files written.** If you inspect the DLL with `dumpbin /imports`, you will see
+  file functions such as `CreateFileW` and `WriteFile` among its KERNEL32 imports. They come from the C runtime
+  that is linked into the DLL (`/MT`); the add-on's own code never calls them, and there are no network imports.
 - It adds one block of text to the item tooltip by hooking the game's "get item description" function on top
   of the hook GWToolbox++ already has there. It only does so once it has confirmed that hook is Toolbox's.
 - If anything it needs is missing or unexpected, it does nothing instead of guessing. After an unexpected error it
@@ -40,9 +42,9 @@ please read the code before using it and open an Issue about anything odd. It is
 
 ## Installing
 
-1. Download `NicholasStash.dll` from the latest [release](../../releases). Compare its SHA-256 with the
-   `NicholasStash.dll.sha256` file next to it (in PowerShell: `Get-FileHash NicholasStash.dll`).
-2. Put it in a folder of your choice (not inside Guild Wars' or Toolbox's own folders).
+1. Download `NicholasStash.dll` from the latest [release](../../releases). Compare its SHA-256 (in PowerShell:
+   `Get-FileHash NicholasStash.dll`) with the one written in the release notes, next to the link to the build log.
+2. Put it in a folder of your choice that you won't delete by accident.
 3. In GW Launcher, open the **mods** tab, add `NicholasStash.dll`, and keep GWToolbox++ selected too.
 4. Start the game. A few seconds after login, hover a Nicholas item in a town.
 
@@ -51,13 +53,15 @@ To remove it, untick it in the mods tab or delete the file.
 ## How to verify the download
 
 Release files are built **by GitHub Actions from this repository's source**, not on anyone's PC.
-See [`.github/workflows/build.yml`](.github/workflows/build.yml). The Actions run log shows the build, and the
-checksum is computed in that run. You can also build it yourself and compare behaviour (builds are not
+See [`.github/workflows/build.yml`](.github/workflows/build.yml). The build job is read-only and uses only
+GitHub's own actions, pinned to exact versions. A separate job publishes the result and refuses to replace an
+existing release. The release notes contain the checksum and a link to the build log of the run that made the file. You can also build it yourself and compare behaviour (builds are not
 byte-for-byte identical across machines).
 
 ## Building it yourself
 
-Needs Windows, Visual Studio 2026 Build Tools (C++ workload, x86) and CMake. Guild Wars is a 32-bit program, so
+Needs Windows, Visual Studio 2026 Build Tools (C++ workload, x86) and CMake 4.2 or newer (older versions don't
+know the "Visual Studio 18 2026" generator). Guild Wars is a 32-bit program, so
 the DLL must be 32-bit.
 
 ```
